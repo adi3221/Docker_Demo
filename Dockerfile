@@ -7,15 +7,17 @@ RUN yum update -y \
     && yum install -y wget unzip curl
 
 # Set the Mule runtime version# Set the Mule runtime version
+# Set the Mule runtime version
 ENV MULE_VERSION=4.4.0
 
-# Download and install Mule runtime
+# Download and install Mule runtime with retries
 WORKDIR /opt
-RUN wget https://repository.mulesoft.org/nexus/content/repositories/releases/org/mule/distributions/mule-standalone/${MULE_VERSION}/mule-standalone-${MULE_VERSION}.tar.gz \
-    && tar -xzf mule-standalone-${MULE_VERSION}.tar.gz \
-    && rm mule-standalone-${MULE_VERSION}.tar.gz \
-    && ln -s mule-standalone-${MULE_VERSION} mule
-
+RUN set -eux; \
+    for i in {1..5}; do \
+        wget https://repository.mulesoft.org/nexus/content/repositories/releases/org/mule/distributions/mule-standalone/${MULE_VERSION}/mule-standalone-${MULE_VERSION}.tar.gz && break; \
+        sleep 5; \
+    done; \
+    tar -xzf mule-standalone-${MULE_VERSION}.tar.gz && rm mule-standalone-${MULE_VERSION}.tar.gz && ln -s mule-standalone-${MULE_VERSION} mule
 
 # Set the working directory
 WORKDIR /opt/mule
