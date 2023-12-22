@@ -8,17 +8,19 @@ RUN yum update -y \
 
 # Set the Mule runtime version# Set the Mule runtime version
 # Set the Mule runtime version
+# Set the Mule runtime version
 ENV MULE_VERSION=4.4.0
 
-# Download and install Mule runtime with retries
+# Download Mule runtime manually and copy it into the image
 WORKDIR /opt
-RUN set -eux; \
-    for i in {1..5}; do \
-        wget https://repository.mulesoft.org/nexus/content/repositories/releases/org/mule/distributions/mule-standalone/${MULE_VERSION}/mule-standalone-${MULE_VERSION}.tar.gz && break; \
-        sleep 5; \
-    done; \
-    tar -xzf mule-standalone-${MULE_VERSION}.tar.gz && rm mule-standalone-${MULE_VERSION}.tar.gz && ln -s mule-standalone-${MULE_VERSION} mule
+RUN wget https://repository.mulesoft.org/nexus/content/repositories/releases/org/mule/distributions/mule-standalone/${MULE_VERSION}/mule-standalone-${MULE_VERSION}.tar.gz
 
+# Extract and cleanup
+RUN tar -xzf mule-standalone-${MULE_VERSION}.tar.gz \
+    && rm mule-standalone-${MULE_VERSION}.tar.gz \
+    && ln -s mule-standalone-${MULE_VERSION} mule
+
+# Continue with the rest of your Dockerfile
 # Set the working directory
 WORKDIR /opt/mule
 
