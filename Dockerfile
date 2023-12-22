@@ -6,15 +6,16 @@ RUN yum update -y \
     && amazon-linux-extras install -y java-openjdk11 \
     && yum install -y wget unzip curl
 
-# Set the Mule runtime version
+# Set the Mule runtime version# Set the Mule runtime version
 ENV MULE_VERSION=4.4.0
 
 # Download and install Mule runtime
 WORKDIR /opt
-RUN wget https://repository.mulesoft.org/nexus/content/repositories/releases/org/mule/distributions/mule-standalone/4.4.0/mule-standalone-4.4.0.tar.gz \
-    && tar -xzf mule-standalone-4.4.0.tar.gz \
-    && rm mule-standalone-4.4.0.tar.gz \
-    && ln -s mule-standalone-4.4.0 mule
+RUN wget https://repository.mulesoft.org/nexus/content/repositories/releases/org/mule/distributions/mule-standalone/${MULE_VERSION}/mule-standalone-${MULE_VERSION}.tar.gz \
+    && tar -xzf mule-standalone-${MULE_VERSION}.tar.gz \
+    && rm mule-standalone-${MULE_VERSION}.tar.gz \
+    && ln -s mule-standalone-${MULE_VERSION} mule
+
 
 # Set the working directory
 WORKDIR /opt/mule
