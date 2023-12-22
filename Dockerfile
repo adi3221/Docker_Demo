@@ -15,10 +15,10 @@ ENV MULE_VERSION=4.4.0
 WORKDIR /opt
 RUN wget https://repository.mulesoft.org/nexus/content/repositories/releases/org/mule/distributions/mule-standalone/${MULE_VERSION}/mule-standalone-${MULE_VERSION}.tar.gz
 
-# Extract and cleanup
-RUN tar -xzf mule-standalone-${MULE_VERSION}.tar.gz \
-    && rm mule-standalone-${MULE_VERSION}.tar.gz \
-    && ln -s mule-standalone-${MULE_VERSION} mule
+# # Extract and cleanup
+# RUN tar -xzf mule-standalone-${MULE_VERSION}.tar.gz \
+#     && rm mule-standalone-${MULE_VERSION}.tar.gz \
+#     && ln -s mule-standalone-${MULE_VERSION} mule
 
 # Continue with the rest of your Dockerfile
 # Set the working directory
