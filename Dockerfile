@@ -7,7 +7,7 @@ RUN yum update -y \
     && yum install -y wget unzip curl
 
 # Set the Mule runtime version
-ENV MULE_VERSION=4.5.1EE
+ENV MULE_VERSION=4.4.0
 
 # Download and install Mule runtime
 WORKDIR /opt
@@ -20,7 +20,7 @@ RUN wget https://repository.mulesoft.org/nexus/content/repositories/releases/org
 WORKDIR /opt/mule
 
 # Copy the Mule application into the container
-COPY ./demo_docker_container.rar /opt/mule/apps/
+COPY ./demo_docker_mule.rar /opt/mule/apps/
 
 # Expose the Mule runtime ports
 EXPOSE 8081
