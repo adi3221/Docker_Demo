@@ -7,7 +7,7 @@ RUN yum update -y \
     && yum install -y wget unzip curl
 
 # Set the Mule runtime version
-ENV MULE_VERSION=4.5.1EE
+ENV MULE_VERSION=4.4.0
 
 # Download and install Mule runtime
 WORKDIR /opt
