@@ -1,9 +1,9 @@
 # Use the Amazon Linux base image
 FROM amazonlinux:2
 
-# Install necessary dependencies
+# Install necessary dependencies, including tar
 RUN yum -y update && \
-    yum -y install java-1.8.0-openjdk-devel
+    yum -y install java-1.8.0-openjdk-devel tar
 
 # Set environment variables
 ENV MULE_HOME /opt/mule
