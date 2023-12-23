@@ -1,8 +1,8 @@
 # Use the official Amazon Linux image as the base image
 FROM amazonlinux:2
 
-# Install necessary dependencies
-RUN yum install -y java-1.8.0-openjdk-devel
+# Install necessary dependencies, including tar
+RUN yum install -y java-1.8.0-openjdk-devel tar
 
 # Set environment variables
 ENV MULE_HOME /opt/mule
@@ -26,6 +26,3 @@ COPY docker_mule.rar ${MULE_HOME}/apps/your-mule-app.zip
 
 # Start the Mule runtime
 CMD ["./bin/mule"]
-
-# Example command to build the Docker image:
-# docker build -t your-mule-app-image .
