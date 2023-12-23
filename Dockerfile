@@ -1,28 +1,31 @@
-# Use Amazon Linux as the base image
+# Use the official Amazon Linux image as the base image
 FROM amazonlinux:2
+
+# Install necessary dependencies
+RUN yum install -y java-1.8.0-openjdk-devel
 
 # Set environment variables
 ENV MULE_HOME /opt/mule
 ENV MULE_VERSION 4.4.0
-ENV MULE_DOWNLOAD_URL https://repository.mulesoft.org/nexus/content/repositories/releases/org/mule/distributions/mule-standalone/${MULE_VERSION}/mule-standalone-${MULE_VERSION}.tar.gz
 
-# Install dependencies
-RUN yum -y update && \
-    yum -y install tar gzip java-1.8.0-openjdk && \
-    yum clean all
+# Download and install Mule runtime
+WORKDIR /opt
+RUN curl -L https://repository.mulesoft.org/nexus/content/repositories/releases/org/mule/distributions/mule-standalone/${MULE_VERSION}/mule-standalone-${MULE_VERSION}.tar.gz -o mule-standalone-${MULE_VERSION}.tar.gz \
+    && tar -xf mule-standalone-${MULE_VERSION}.tar.gz \
+    && mv mule-standalone-${MULE_VERSION} mule \
+    && rm mule-standalone-${MULE_VERSION}.tar.gz
 
-# Download and extract MuleSoft runtime
-RUN mkdir -p ${MULE_HOME} && \
-    curl -L ${MULE_DOWNLOAD_URL} | tar xz -C ${MULE_HOME} --strip-components=1
-
-# Expose the necessary ports
-EXPOSE 8081
-
-# Set the working directory to MuleSoft installation directory
+# Set the Mule runtime as the working directory
 WORKDIR ${MULE_HOME}
 
-# Copy your Mule application into the container
-COPY ./target/docker_mule-1.0.0-SNAPSHOT-mule-application.jar ${MULE_HOME}/apps/
+# Expose the necessary ports for your Mule application
+EXPOSE 8081
 
-# Start MuleSoft runtime
+# Copy your Mule application to the container
+COPY docker_mule.rar ${MULE_HOME}/apps/your-mule-app.zip
+
+# Start the Mule runtime
 CMD ["./bin/mule"]
+
+# Example command to build the Docker image:
+# docker build -t your-mule-app-image .
