@@ -1,8 +1,8 @@
 # Use the official Amazon Linux image as the base image
 FROM amazonlinux:2
 
-# Install necessary dependencies, including tar
-RUN yum install -y java-1.8.0-openjdk-devel tar
+# Install necessary dependencies, including procps for ps command
+RUN yum install -y java-1.8.0-openjdk-devel tar procps
 
 # Set environment variables
 ENV MULE_HOME /opt/mule
