@@ -11,6 +11,7 @@ ENV PATH $PATH:$JAVA_HOME/bin
 # Set environment variables for Mule
 ENV MULE_HOME /opt/mule
 ENV MULE_VERSION 4.4.0
+ENV JAVA_OPTS="-Xms256m -Xmx512m"
 
 # Download and install Mule runtime
 WORKDIR /opt
