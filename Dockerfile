@@ -23,7 +23,7 @@ WORKDIR ${MULE_HOME}
 EXPOSE 8081
 
 # Copy your Mule application JAR to the apps directory
-COPY docker_mule.jar ${MULE_HOME}/apps/
+COPY docker_mule.rar ${MULE_HOME}/apps/
 
 # Start MuleSoft runtime
 CMD ["./bin/mule"]
